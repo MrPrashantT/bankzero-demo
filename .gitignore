@@ -1,0 +1,15 @@
+# ignore appsettings
+**/appsettings.development.json
+**/appsettings.staging.json
+**/appsettings.production.json
+**/appsettings.json
+
+#ignore build
+**/bin
+**/obj
+
+#ignore vs code config
+**/.vscode
+
+#ignore dependencies
+**/wwwroot/lib
