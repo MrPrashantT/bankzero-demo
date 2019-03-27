@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TAM_Exercise
 {
@@ -41,6 +42,10 @@ namespace TAM_Exercise
             })
             .AddCookie()
             .AddOpenIdConnect("Auth0", options => {
+                
+                //Save tokens
+                options.SaveTokens = true;
+
                 // Set the authority to your Auth0 domain
                 options.Authority = $"https://{Configuration["Auth0:Domain"]}";
 
@@ -55,12 +60,24 @@ namespace TAM_Exercise
                 options.Scope.Clear();
                 options.Scope.Add("openid");
 
+                // Custom API scopes
+                // options.Scope.Add("read:balances");
+                // options.Scope.Add("write:payments");
+
                 // Set the callback path, so Auth0 will call back to http://localhost:3000/callback
                 // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard
                 options.CallbackPath = new PathString("/callback");
 
                 // Configure the Claims Issuer to be Auth0
                 options.ClaimsIssuer = "Auth0";
+
+
+                 // Set the correct name claim type
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "name",
+                    RoleClaimType = "https://bankzero.com/roles"
+                };
 
                 options.Events = new OpenIdConnectEvents
                 {

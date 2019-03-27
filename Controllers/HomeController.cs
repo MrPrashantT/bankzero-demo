@@ -5,17 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TAM_Exercise.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 
 namespace TAM_Exercise.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index()
+        {            
+            return View();
+        }
+
+        [Authorize(Roles = "Account Owner")]
+        public IActionResult Privacy()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [Authorize]
+        public IActionResult Balances(){
+            return View();
+        }
+
+        [Authorize(Roles = "Account Owner")]
+        public IActionResult Payments()
         {
             return View();
         }

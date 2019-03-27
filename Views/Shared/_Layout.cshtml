@@ -31,11 +31,16 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Balances">Balances</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
+                            
+                            @if (User.IsInRole("Account Owner"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Payments">Payments</a>
+                                </li>
+                            }
+        
                             <li>
                                 <a asp-controller="Account" asp-action="Logout" class="nav-link text-dark">Logout</a>
                             </li>
