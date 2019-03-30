@@ -58,7 +58,7 @@ namespace TAM_Exercise
 
                 // Configure the scope
                 options.Scope.Clear();
-                options.Scope.Add("openid");
+                options.Scope.Add("openid profile");
 
                 // Custom API scopes
                 // options.Scope.Add("read:balances");
