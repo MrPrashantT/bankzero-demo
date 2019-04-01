@@ -109,7 +109,16 @@ namespace TAM_Exercise
                         context.HandleResponse();
 
                         return Task.CompletedTask;
+                    },
+
+                    OnRemoteFailure = (context) =>
+                    {
+                        context.Response.Redirect("/Home/Error");
+                        context.HandleResponse();
+                        return Task.FromResult(0);
                     }
+
+
                 };
             });
 
